@@ -119,11 +119,13 @@ subprojects {
 tasks.register<JacocoReport>("jacocoRootReport") {
     dependsOn(subprojects.map { it.tasks.withType<Test>() })
 
-    executionData(subprojects.flatMap {
-        it.tasks.withType<Test>().map { task ->
-            task.extensions.getByType<JacocoTaskExtension>().destinationFile
-        }
-    })
+    executionData(
+        subprojects.flatMap {
+            it.tasks.withType<Test>().map { task ->
+                task.extensions.getByType<JacocoTaskExtension>().destinationFile
+            }
+        },
+    )
 
     subprojects.forEach { subproject ->
         val sourceSets = subproject.extensions.getByType<SourceSetContainer>()
