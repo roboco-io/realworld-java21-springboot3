@@ -1,7 +1,11 @@
+import org.gradle.api.tasks.SourceSetContainer
+import org.gradle.testing.jacoco.plugins.JacocoTaskExtension
+import org.gradle.testing.jacoco.tasks.JacocoReport
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     java
+    jacoco
     alias(libs.plugins.spotless)
     alias(libs.plugins.spring.boot) apply false
     alias(libs.plugins.spring.dependency.management) apply false
@@ -23,6 +27,7 @@ allprojects {
             .get()
             .pluginId,
     )
+    plugins.apply("jacoco")
 
     repositories {
         mavenCentral()
@@ -32,6 +37,10 @@ allprojects {
         toolchain {
             languageVersion.set(JavaLanguageVersion.of(versionCatalog.versions.java.get()))
         }
+    }
+
+    jacoco {
+        toolVersion = "0.8.11"
     }
 
     spotless {
@@ -87,6 +96,15 @@ subprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+        finalizedBy(tasks.jacocoTestReport)
+    }
+
+    tasks.jacocoTestReport {
+        dependsOn(tasks.test)
+        reports {
+            xml.required.set(true)
+            html.required.set(true)
+        }
     }
 
     tasks.getByName<BootJar>("bootJar") {
@@ -95,5 +113,27 @@ subprojects {
 
     tasks.getByName<Jar>("jar") {
         enabled = true
+    }
+}
+
+tasks.register<JacocoReport>("jacocoRootReport") {
+    dependsOn(subprojects.map { it.tasks.withType<Test>() })
+
+    executionData(subprojects.flatMap {
+        it.tasks.withType<Test>().map { task ->
+            task.extensions.getByType<JacocoTaskExtension>().destinationFile
+        }
+    })
+
+    subprojects.forEach { subproject ->
+        val sourceSets = subproject.extensions.getByType<SourceSetContainer>()
+        sourceDirectories.from(sourceSets.getByName("main").allSource.srcDirs)
+        classDirectories.from(sourceSets.getByName("main").output)
+    }
+
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+        html.outputLocation.set(layout.buildDirectory.dir("reports/jacoco/aggregate"))
     }
 }
