@@ -239,7 +239,7 @@
 1. **개발**: 모든 origin 허용
 2. **운영**: 특정 도메인만 허용 (반드시 변경)
 
-## Git 커밋 규칙
+## Git 워크플로우 규칙
 
 ### 커밋 메시지
 
@@ -252,11 +252,24 @@
    - style: 코드 포맷팅
    - chore: 기타 작업
 
-2. **예시**
+2. **커밋 메시지 본문 형식** (선택 사항)
+   ```
+   타입: 간결한 설명
+
+   - 변경 사항 상세 설명 (선택)
+   - 추가 컨텍스트나 이유 설명 (선택)
+
+   🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+   Co-Authored-By: Claude <noreply@anthropic.com>
+   ```
+
+3. **예시**
    - `feat: Add user follow/unfollow feature`
    - `fix: Fix article slug generation bug`
    - `refactor: Extract common validation logic`
    - `test: Add UserService unit tests`
+   - `docs: Add comprehensive Claude Code collaboration guidelines`
 
 ### 커밋 전 체크리스트
 
@@ -265,6 +278,92 @@
 - [ ] 불필요한 주석 제거
 - [ ] console.log, System.out.println 제거
 - [ ] TODO 주석 확인 및 처리
+
+### Git 태그 규칙
+
+1. **태그 형식**: Semantic Versioning 사용
+   - `v{major}.{minor}.{patch}` (예: v1.0.0)
+   - 설명적 접미사 가능 (예: v1.0.0-claude-rules)
+
+2. **태그 생성**
+   ```bash
+   # Annotated 태그 생성 (권장)
+   git tag -a v1.0.0 -m "Release: 릴리즈 설명"
+
+   # 태그 푸시
+   git push --tags
+   ```
+
+3. **태그 사용 시점**
+   - 주요 기능 완성 시
+   - 프로젝트 마일스톤 달성 시
+   - 중요한 규칙이나 구조 변경 시
+   - 배포 준비 완료 시
+
+### Claude Code와 협업 시 Git 워크플로우
+
+1. **일반 개발 워크플로우**
+   ```bash
+   # 1. 작업 수행 (코드 작성, 수정)
+   # 2. 코드 포매팅
+   ./gradlew spotlessApply
+
+   # 3. 테스트 실행
+   ./gradlew test
+
+   # 4. 변경 사항 확인
+   git status
+   git diff
+
+   # 5. 스테이징
+   git add [파일명 또는 .]
+
+   # 6. 커밋
+   git commit -m "타입: 간결한 설명
+
+   🤖 Generated with [Claude Code](https://claude.com/claude-code)
+
+   Co-Authored-By: Claude <noreply@anthropic.com>"
+
+   # 7. 푸시
+   git push
+   ```
+
+2. **마일스톤 달성 시 워크플로우**
+   ```bash
+   # 1-7. 위 일반 워크플로우 수행
+
+   # 8. 태그 생성
+   git tag -a v1.0.0 -m "Release: 릴리즈 설명
+
+   주요 변경 사항:
+   - 기능 A 추가
+   - 기능 B 개선
+   - 버그 C 수정"
+
+   # 9. 태그 푸시
+   git push --tags
+   ```
+
+3. **Claude Code 자동 처리 사항**
+   - 커밋 메시지에 Claude Code 서명 자동 추가
+   - HEREDOC 형식으로 멀티라인 커밋 메시지 작성
+   - 스테이징 → 커밋 → 푸시를 순차적으로 실행
+   - 태그 생성 시 annotated 태그 사용
+
+### 주의 사항
+
+1. **절대 하지 말 것**
+   - `git push --force` (특히 main/master 브랜치)
+   - 테스트 실패 상태에서 커밋
+   - 빌드 실패 상태에서 커밋
+   - spotlessApply 미실행 상태에서 커밋
+
+2. **권장 사항**
+   - 논리적으로 관련된 변경사항끼리 커밋
+   - 커밋 메시지는 명확하고 간결하게
+   - 대규모 변경은 작은 단위로 분할 커밋
+   - 태그는 의미 있는 시점에만 생성
 
 ## 성능 최적화 규칙
 
