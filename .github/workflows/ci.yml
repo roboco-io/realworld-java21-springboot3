@@ -27,14 +27,13 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run Spotless Check
-        run: ./gradlew spotlessCheck
-
-      - name: Run Checkstyle
-        run: ./gradlew checkstyleMain checkstyleTest
-
       - name: Build with Gradle
         run: ./gradlew build
+        # build 태스크는 다음을 자동으로 실행합니다:
+        # - spotlessCheck (코드 포맷팅 검증)
+        # - checkstyleMain, checkstyleTest (린트 검증)
+        # - test (모든 테스트)
+        # - jacocoTestReport (커버리지 측정)
 
       - name: Upload test results
         if: always()

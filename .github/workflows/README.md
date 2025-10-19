@@ -21,48 +21,51 @@ main 브랜치에 push되거나 Pull Request가 생성될 때 자동으로 실�
    - Temurin 배포판 사용
    - Gradle 캐시 활성화로 빌드 속도 향상
 
-3. **Spotless Check**
-   - 코드 포맷팅 규칙 준수 여부 확인
-   - 실패 시 빌드 중단
+3. **Gradle Build**
+   - `./gradlew build` 한 번의 명령으로 모든 검증 수행
+   - 자동으로 포함되는 검증 단계:
+     - `spotlessCheck`: 코드 포맷팅 검증
+     - `checkstyleMain`, `checkstyleTest`: 린트 검증
+     - `test`: 모든 단위 테스트 실행
+     - `jacocoTestReport`: 커버리지 측정
+   - 어느 단계에서든 실패하면 빌드 중단
 
-4. **Checkstyle**
-   - Java 코드 린트 검증
-   - 위반 시 빌드 중단 (maxWarnings = 0)
-
-5. **Gradle Build**
-   - 전체 프로젝트 빌드
-   - 모든 테스트 실행
-   - JaCoCo 커버리지 측정
-
-6. **JaCoCo Badge 생성**
-   - 커버리지 배지 자동 생성
-   - `.github/badges/` 디렉토리에 저장
-
-7. **Artifact 업로드**
-   - JaCoCo HTML 리포트 업로드
-   - 테스트 결과 XML 업로드
-
-8. **PR 커버리지 코멘트** (PR인 경우)
-   - PR에 자동으로 커버리지 리포트 댓글 추가
-   - 전체 커버리지 최소 70% 요구
-   - 변경된 파일 커버리지 최소 80% 요구
+4. **테스트 결과 업로드**
+   - 테스트 결과 XML 파일을 artifact로 저장
+   - 빌드 실패해도 업로드 (if: always())
 
 ## 로컬에서 CI 검증하기
 
-CI가 실행하는 명령어를 로컬에서 동일하게 실행할 수 있습니다:
+CI와 동일한 검증을 로컬에서 실행할 수 있습니다:
 
 ```bash
-# 1. 코드 포맷팅 검증
-./gradlew spotlessCheck
-
-# 2. 린트 검증
-./gradlew checkstyleMain checkstyleTest
-
-# 3. 빌드 및 테스트
+# CI와 완전히 동일한 명령어 - 이것만 실행하면 됩니다!
 ./gradlew build
 
-# 4. 커버리지 리포트 확인
-open build/reports/jacoco/jacocoRootReport/html/index.html
+# build 태스크는 자동으로 다음을 실행합니다:
+# - spotlessCheck (코드 포맷팅)
+# - checkstyleMain, checkstyleTest (린트)
+# - test (테스트)
+# - jacocoTestReport (커버리지)
+```
+
+### 개별 검증 실행 (선택사항)
+
+특정 단계만 확인하고 싶을 때:
+
+```bash
+# 코드 포맷팅만 검증
+./gradlew spotlessCheck
+
+# 린트만 검증
+./gradlew checkstyleMain checkstyleTest
+
+# 테스트만 실행
+./gradlew test
+
+# 커버리지 리포트만 생성
+./gradlew jacocoTestReport
+open build/reports/jacoco/test/html/index.html
 ```
 
 ## 빌드 상태 확인
