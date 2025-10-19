@@ -38,3 +38,6 @@ out/
 /org.gradle.api.internal*
 /.tool-versions
 /CLAUDE.md
+
+### Local Configuration ###
+gradle-local.properties
