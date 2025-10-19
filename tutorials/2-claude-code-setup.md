@@ -54,13 +54,11 @@ Claude: "어떤 규칙을 따라야 하나요?"
 ### CLAUDE.md의 역할
 
 ```
-┌─────────────────────────────────────────┐
-│         CLAUDE.md (프로젝트 가이드)      │
-│  - 프로젝트 구조                         │
-│  - 빌드 명령어                           │
-│  - 아키텍처 패턴                         │
-│  - 개발 가이드라인                       │
-└─────────────────────────────────────────┘
+    CLAUDE.md (프로젝트 가이드)
+    - 프로젝트 구조
+    - 빌드 명령어
+    - 아키텍처 패턴
+    - 개발 가이드라인
              ↓
     Claude Code가 자동으로 읽음
              ↓
@@ -83,12 +81,8 @@ Claude: "어떤 규칙을 따라야 하나요?"
 ```bash
 cd your-project
 claude
-
-# Claude Code가 자동으로:
-# 1. CLAUDE.md 찾기
-# 2. 내용 읽기
-# 3. 컨텍스트 활용
 ```
+Claude Code가 자동으로 CLAUDE.md 찾아서 내용 읽고 컨텍스트로 활용
 
 ---
 
@@ -104,13 +98,7 @@ claude
 ### 2단계: 프로젝트 분석 요청
 
 ```
-> 이 프로젝트를 분석하고 CLAUDE.md 파일을 작성해줘.
-  다음 내용을 포함해줘:
-  - 프로젝트 개요
-  - 빌드 명령어
-  - 모듈 아키텍처
-  - 테스트 실행 방법
-  - 개발 가이드라인
+/init
 ```
 
 ---
@@ -132,10 +120,7 @@ RealWorld API 구현체입니다.
 ## 빌드 시스템 & 명령어
 
 ### 애플리케이션 실행
-```bash
 ./gradlew realworld:bootRun
-```
-...
 ```
 
 ---
@@ -145,36 +130,26 @@ RealWorld API 구현체입니다.
 ### 필수 섹션
 
 1. **프로젝트 개요**
-   - 기술 스택
-   - 주요 기능
-   - 아키텍처 패턴
+   - 기술 스택, 주요 기능, 아키텍처 패턴
 
 2. **빌드 시스템**
-   - 실행 명령어
-   - 테스트 명령어
-   - 빌드 명령어
+   - 실행 명령어, 테스트 명령어, 빌드 명령어
 
 3. **모듈 구조**
-   - 각 모듈의 역할
-   - 의존성 관계
+   - 각 모듈의 역할, 의존성 관계
 
 ---
 
-## CLAUDE.md 핵심 구조 (계속)
+## CLAUDE.md 핵심 구조
 
 4. **개발 가이드라인**
-   - 코딩 규칙
-   - 네이밍 컨벤션
-   - 아키텍처 원칙
+   - 코딩 규칙, 네이밍 컨벤션, 아키텍처 원칙
 
 5. **테스트 전략**
-   - 테스트 작성 규칙
-   - 실행 방법
-   - 커버리지 기준
+   - 테스트 작성 규칙, 실행 방법, 커버리지 기준
 
 6. **문제 해결**
-   - 일반적인 오류
-   - 해결 방법
+   - 일반적인 오류, 해결 방법
 
 ---
 
@@ -220,7 +195,6 @@ realworld-java21-springboot3/
 ## 주요 패키지
 - `model/`: 도메인 엔티티와 저장소 인터페이스
 - `service/`: 비즈니스 로직 서비스
-...
 ```
 
 ---
@@ -298,7 +272,7 @@ realworld-java21-springboot3/
 
 ---
 
-## rules.md 핵심 내용 (계속)
+## rules.md 핵심 내용
 
 ### 2. 아키텍처 규칙
 
@@ -306,9 +280,7 @@ realworld-java21-springboot3/
 ## 아키텍처 규칙
 
 ### 모듈 의존성
-```
 api (compileOnly) → core ← persistence (implements)
-```
 
 ### 레이어 분리
 - Controller: HTTP 처리만
@@ -322,28 +294,23 @@ api (compileOnly) → core ← persistence (implements)
 
 ---
 
-## rules.md 핵심 내용 (계속)
+## rules.md 핵심 내용
 
-### 3. 테스트 규칙 ⭐ (가장 중요!)
+### 3. 테스트 규칙
 
 ```markdown
 ## 테스트 규칙
 
 ### ❌ 절대 금지: 예외 메시지 검증
-```java
 // Bad - 메시지 변경 시 테스트 깨짐
 val exception = shouldThrow<IllegalArgumentException> { ... }
 exception.message shouldBe "User not found"
-```
 
 ### ✅ 올바른 방법: 예외 타입만 검증
-```java
 // Good - 안정적인 테스트
 shouldThrow<IllegalArgumentException> { ... }
 ```
-
 **이유**: 예외 메시지는 변경 가능, 타입은 계약
-```
 
 ---
 
@@ -402,8 +369,6 @@ Claude: (rules.md 보지 않고 작성)
 이 규칙을 반드시 따라야 합니다.
 
 불확실한 경우 `/check-rules` 명령어를 사용하세요.
-
----
 ```
 
 ---
@@ -440,15 +405,12 @@ Claude: (rules.md 보지 않고 작성)
 
 ## 1. 코딩 표준 검증
 - `.claude/rules.md`의 코딩 표준 확인
-- Lombok 사용 규칙 준수 여부
-- 네이밍 규칙 준수 여부
 
 ## 2. 아키텍처 규칙 검증
 - 모듈 의존성 방향 확인
 - 레이어 분리 원칙 준수
-- 예외 처리 규칙 확인
 
-## 3. 테스트 규칙 검증 ⭐
+## 3. 테스트 규칙 검증
 - 예외 메시지 검증 여부 확인 (금지!)
 - 테스트 네이밍 규칙 확인
 ```
@@ -465,75 +427,14 @@ Claude: (rules.md 보지 않고 작성)
 ## 단계
 
 ### 1. 테스트 실행
-```bash
 ./gradlew test
-```
 
-### 2. 실패 시 분석
-- 오류 메시지 확인
-- 스택 트레이스 분석
-- 실패 원인 설명
-
-### 3. 커버리지 확인
-```bash
+### 2. 커버리지 확인
 ./gradlew jacocoRootReport
-```
 
-### 4. 리포트 요약
+### 3. 리포트 요약
 - 전체 커버리지 퍼센트
 - 개선이 필요한 영역
-```
-
----
-
-## 커스텀 명령어: new-feature.md
-
-### 새 기능 추가 워크플로우
-
-```markdown
-# /new-feature - 새 기능 추가
-
-사용자에게 기능 설명을 요청하고 다음 순서로 구현:
-
-## 1. 요구사항 확인
-- 기능 상세 설명 요청
-- 엔티티, API, 비즈니스 로직 파악
-
-## 2. Core 모듈 작업
-1. `module/core/src/main/java/io/zhc1/realworld/model/`
-   - 엔티티 클래스 생성
-2. `module/core/src/main/java/io/zhc1/realworld/model/`
-   - Repository 인터페이스 정의
-3. `module/core/src/main/java/io/zhc1/realworld/service/`
-   - Service 인터페이스 및 구현 작성
-```
-
----
-
-## 커스텀 명령어: new-feature.md (계속)
-
-```markdown
-## 3. Persistence 모듈 작업
-1. `module/persistence/.../persistence/`
-   - JPA Repository 구현
-   - Specification (필요시)
-
-## 4. API 모듈 작업
-1. `server/api/.../api/response/`
-   - Response DTO 작성
-2. `server/api/.../api/request/`
-   - Request DTO 작성 (필요시)
-3. `server/api/.../api/`
-   - Controller 작성
-
-## 5. 테스트 작성
-- Service 단위 테스트
-- Controller 통합 테스트
-
-## 6. 검증
-```bash
-./gradlew build
-```
 ```
 
 ---
@@ -556,21 +457,15 @@ Claude: (rules.md 보지 않고 작성)
 - 코딩 표준
 - 아키텍처 규칙
 - 테스트 규칙
-- 기타 관련 규칙
 
 ## 예시
-작업: "UserService에 새 메서드 추가"
-관련 규칙:
-- Lombok `@RequiredArgsConstructor` 사용
-- 검증 실패 시 `IllegalArgumentException`
-- 테스트에서 예외 메시지 검증 금지
 ```
 
 ---
 
 ## 커스텀 명령어 사용: 실습
 
-### 1. /check-rules 사용
+### /check-rules 사용
 
 ```
 > /check-rules 새 기능 추가
@@ -588,24 +483,32 @@ Claude 응답:
 
 ---
 
-## 커스텀 명령어 사용: 실습 (계속)
+## 커스텀 명령어 셋 사용: Super Claude
 
-### 2. /new-feature 사용
+### Super Claude 사용
+
+https://github.com/SuperClaude-Org/SuperClaude_Framework
+
+```sh
+pip install SuperClaude && pip upgrade SuperClaude && SuperClaude install
+```
 
 ```
-> /new-feature
+"https://github.com/SuperClaude-Org/SuperClaude_Framework"에 나와있는 프레임워크 설치해줘!
+```
 
-Claude: "어떤 기능을 추가하시겠습니까?"
+---
 
-사용자: "게시글 북마크 기능"
+## 커스텀 명령어 셋 사용: Super Claude
 
-Claude: "알겠습니다. 다음 순서로 구현하겠습니다:
-1. Core 모듈에 Bookmark 엔티티 생성
-2. BookmarkRepository 인터페이스 정의
-3. BookmarkService 구현
-..."
+### Super Claude 사용 (이미 잘 구현된 커스텀 명령어)
 
-(자동으로 모든 단계 수행)
+```
+/sc:implement "@prd.md 보고 구현해줘." --type backend --focus performance
+```
+
+```
+/sc:document "git 최신 커밋 3개의 변경사항을 보고 문서화해줘."
 ```
 
 ---
@@ -615,61 +518,23 @@ Claude: "알겠습니다. 다음 순서로 구현하겠습니다:
 ### Claude Code 협업 시스템
 
 ```
-┌─────────────────────────────────────────┐
-│  CLAUDE.md (프로젝트 구조)              │
-│  - 빌드 명령어                          │
-│  - 모듈 아키텍처                        │
-│  - 개발 가이드                          │
-└────────────┬────────────────────────────┘
+CLAUDE.md (프로젝트 구조)
+- 빌드 명령어
+- 모듈 아키텍처
+- 개발 가이드
              ↓
-┌────────────┴────────────────────────────┐
-│  .claude/rules.md (작업 규칙)          │
-│  - 코딩 표준                            │
-│  - 아키텍처 규칙                        │
-│  - 테스트 규칙                          │
-└────────────┬────────────────────────────┘
+.claude/rules.md (작업 규칙)
+- 코딩 표준
+- 아키텍처 규칙
+- 테스트 규칙
              ↓
-┌────────────┴────────────────────────────┐
-│  .claude/commands/ (워크플로우)        │
-│  - /review, /test                       │
-│  - /new-feature, /fix-bug               │
-└─────────────────────────────────────────┘
+.claude/commands/ (워크플로우)
+- /review, /test
+- /new-feature, /fix-bug
 ```
-
 ---
 
 ## 실전 워크플로우 예시
-
-### 시나리오: 버그 수정
-
-```bash
-# 1. 규칙 확인
-> /check-rules 버그 수정
-
-# 2. 버그 수정 명령
-> /fix-bug "좋아요 중복 카운트 버그"
-
-# Claude가 자동으로:
-# - 문제 분석
-# - 수정 코드 작성
-# - 테스트 추가
-# - 빌드 검증
-
-# 3. 코드 리뷰
-> /review
-
-# 4. 테스트 실행
-> /test
-
-# 5. 커밋
-./gradlew spotlessApply
-git add .
-git commit -m "fix: 좋아요 중복 카운트 버그 수정"
-```
-
----
-
-## 실전 워크플로우 예시 (계속)
 
 ### 시나리오: 새 기능 추가
 
@@ -678,17 +543,13 @@ git commit -m "fix: 좋아요 중복 카운트 버그 수정"
 > /check-rules 새 기능 추가
 
 # 2. 기능 구현
-> /new-feature "게시글 북마크"
+> /sc:implement "게시글 북마크"
 
 # Claude가 자동으로:
-# - Core 모듈 작업
-# - Persistence 모듈 작업
-# - API 모듈 작업
-# - 테스트 작성
+# - Core 모듈 작업, Persistence 모듈 작업, API 모듈 작업, 테스트 작성
 
 # 3. 검증
-> /test
-> /review
+> /review, /test
 
 # 4. 빌드 확인
 ./gradlew build
@@ -705,7 +566,6 @@ git commit -m "fix: 좋아요 중복 카운트 버그 수정"
 
 ### 자동화된 워크플로우
 - ✅ 반복 작업을 명령어로 자동화
-- ✅ 규칙 준수를 자동으로 검증
 - ✅ 실수 가능성 감소
 
 ### 명확한 규칙 관리
@@ -725,174 +585,10 @@ git commit -m "fix: 좋아요 중복 카운트 버그 수정"
 ### rules.md 작성
 ✅ **구체적으로** - 모호하지 않게
 ✅ **예시 코드** - Good/Bad 예시
-✅ **우선순위** - 중요한 규칙 강조
 
 ### 커스텀 명령어
 ✅ **단일 책임** - 한 명령어는 한 가지 작업
 ✅ **명확한 이름** - /review, /test 등
-✅ **단계별 설명** - 순서 명시
-
----
-
-## 안티패턴 (피해야 할 것)
-
-### ❌ 너무 많은 정보
-```markdown
-# Bad
-CLAUDE.md에 200페이지 분량의 모든 세부사항
-→ Claude가 핵심을 놓칠 수 있음
-```
-
-### ❌ 모호한 규칙
-```markdown
-# Bad
-"좋은 코드를 작성하세요"
-→ 구체적이지 않음
-
-# Good
-"Service 클래스는 @RequiredArgsConstructor를 사용하여
-생성자 주입을 구현하세요"
-```
-
----
-
-## 안티패턴 (계속)
-
-### ❌ 규칙과 구조 혼재
-```markdown
-# Bad - CLAUDE.md에 모든 것
-프로젝트 구조 + 코딩 규칙 + 작업 절차
-→ 유지보수 어려움
-
-# Good - 분리
-CLAUDE.md: 프로젝트 구조
-rules.md: 작업 규칙
-commands/: 워크플로우
-```
-
-### ❌ 명령어 남발
-```
-/do-everything
-/magic-fix
-→ 명확한 책임 없음
-```
-
----
-
-## Git 작업: 태그 생성
-
-### 현재 상태 저장
-
-```bash
-# 변경사항 확인
-git status
-
-# 추가
-git add CLAUDE.md module/*/CLAUDE.md server/*/CLAUDE.md .claude/
-
-# 커밋
-git commit -m "docs: Add Claude Code configuration
-
-- Add CLAUDE.md files for project structure
-- Add .claude/rules.md for coding standards
-- Add custom commands (/review, /test, /new-feature)
-- Add multi-layer warning system for rule enforcement
-
-🤖 Generated with Claude Code"
-
-# 태그 생성
-git tag -a v1.1.0-claude-docs -m "Claude Code documentation and configuration"
-
-# 푸시
-git push origin main --tags
-```
-
----
-
-## 검증: 동작 확인
-
-### 새 Claude 세션으로 테스트
-
-```bash
-# 1. Claude 재시작
-exit
-claude
-
-# 2. 프로젝트 이해 확인
-> 이 프로젝트의 아키텍처를 설명해줘
-
-# Claude가 CLAUDE.md 기반으로 설명
-
-# 3. 규칙 확인
-> /check-rules 새 기능 추가
-
-# Claude가 rules.md 기반으로 규칙 설명
-
-# 4. 명령어 실행
-> /review
-```
-
-**모두 동작하면 성공!** ✅
-
----
-
-## 트러블슈팅
-
-### Claude가 CLAUDE.md를 읽지 않음
-
-**원인**: 파일명 대소문자 오류
-**해결**:
-```bash
-# 반드시 대문자
-mv claude.md CLAUDE.md
-```
-
-### 커스텀 명령어가 작동하지 않음
-
-**원인**: .claude/commands/ 디렉토리 구조 오류
-**해결**:
-```bash
-# 구조 확인
-ls -la .claude/commands/
-# *.md 파일들이 있어야 함
-```
-
----
-
-## 트러블슈팅 (계속)
-
-### rules.md가 참조되지 않음
-
-**해결**: 명시적 참조 추가
-```
-> .claude/rules.md 파일을 읽고
-  해당 규칙에 따라 작업해줘
-```
-
-### 모듈별 CLAUDE.md 충돌
-
-**원인**: 루트와 모듈 문서 내용 불일치
-**해결**: 루트는 개요, 모듈은 상세로 분리
-
----
-
-## 고급 활용: 프로젝트 템플릿
-
-### 다른 프로젝트에 적용
-
-```bash
-# 1. 템플릿 복사
-cp -r realworld/.claude/ my-project/.claude/
-cp realworld/CLAUDE.md my-project/CLAUDE.md
-
-# 2. 프로젝트에 맞게 수정
-# - CLAUDE.md: 프로젝트 정보 변경
-# - rules.md: 프로젝트 규칙 반영
-# - commands/: 필요한 명령어 추가/제거
-
-# 3. Claude로 자동 수정
-> 이 프로젝트에 맞게 CLAUDE.md를 수정해줘
-```
 
 ---
 
@@ -919,39 +615,6 @@ cp realworld/CLAUDE.md my-project/CLAUDE.md
 
 ---
 
-## 다음 단계 미리보기
-
-### 테스트 커버리지 측정
-
-다음 세션에서 배울 내용:
-- **JaCoCo** 설정 및 사용
-- **커버리지 분석** 방법
-- **테스트 작성** 전략
-- **커버리지 개선** 실습
-
-**Claude Code 활용**:
-- `/test` 명령어로 자동 테스트
-- 커버리지 분석 자동화
-- 테스트 코드 자동 생성
-
----
-
-## 핵심 요약
-
-### 배운 내용
-✅ **CLAUDE.md** - 프로젝트 구조 문서화
-✅ **.claude/rules.md** - 작업 규칙 정의
-✅ **커스텀 명령어** - 워크플로우 자동화
-✅ **다층 경고 시스템** - 규칙 준수 강제
-
-### 핵심 원칙
-💡 **구조와 규칙은 분리**
-💡 **명확하고 구체적으로**
-💡 **자동화할 수 있는 것은 자동화**
-💡 **팀과 규칙 공유**
-
----
-
 ## 실습 체크리스트
 
 ### 완료 확인
@@ -960,9 +623,7 @@ cp realworld/CLAUDE.md my-project/CLAUDE.md
 - [ ] 모듈별 CLAUDE.md 생성
 - [ ] .claude/rules.md 작성
 - [ ] 커스텀 명령어 3개 이상 생성
-- [ ] /check-rules 명령어 테스트
-- [ ] /review 명령어 테스트
-- [ ] Git 태그 생성 (v1.1.0-claude-docs)
+- [ ] 커스텀 명령어 테스트
 - [ ] 새 Claude 세션에서 동작 확인
 
 **모두 완료하면 다음 세션으로!**
@@ -972,8 +633,7 @@ cp realworld/CLAUDE.md my-project/CLAUDE.md
 ## 참고 자료
 
 ### 문서
-- [Claude Code 공식 문서](https://docs.anthropic.com/claude-code)
-- [Markdown 가이드](https://www.markdownguide.org/)
+- [Claude Code 공식 문서](https://docs.claude.com/en/docs/claude-code/overview)
 
 ### 예시 프로젝트
 - [RealWorld Claude Config](https://github.com/1chz/realworld-java21-springboot3)
@@ -995,4 +655,3 @@ cp realworld/CLAUDE.md my-project/CLAUDE.md
 # CLAUDE.md 설정 완료! 🎉
 
 ## 다음: 테스트 커버리지 측정 및 개선
-### JaCoCo로 코드 품질 향상하기

@@ -409,23 +409,6 @@ claude --version
 
 ---
 
-## 다음 단계 미리보기
-
-### Claude Code 프로젝트 설정
-
-다음 세션에서 배울 내용:
-- **CLAUDE.md** 파일 작성
-- **.claude/** 디렉토리 구조
-- **커스텀 명령어** 생성
-- **규칙 기반 협업** 시스템
-
-**준비사항**:
-- 환경 설정 완료
-- Claude Code 인증 완료
-- 프로젝트 빌드 성공
-
----
-
 ## Tips & Best Practices
 
 ### 개발 환경 관리
@@ -447,7 +430,7 @@ claude --version
 ### 공식 문서
 - [Java 21 Release Notes](https://openjdk.org/projects/jdk/21/)
 - [GitHub CLI 문서](https://cli.github.com/)
-- [Claude Code 문서](https://docs.anthropic.com/claude-code)
+- [Claude Code 문서](https://docs.claude.com/en/docs/claude-code/overview)
 
 ### 프로젝트
 - [RealWorld Spec](https://realworld-docs.netlify.app/)
