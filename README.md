@@ -1,5 +1,9 @@
 # ![RealWorld Example App](logo.png)
 
+[![CI](https://github.com/YOUR_USERNAME/realworld-java21-springboot3/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_USERNAME/realworld-java21-springboot3/actions/workflows/ci.yml)
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/YOUR_USERNAME/realworld-java21-springboot3/actions/workflows/ci.yml)
+[![Coverage-Branches](.github/badges/branches.svg)](https://github.com/YOUR_USERNAME/realworld-java21-springboot3/actions/workflows/ci.yml)
+
 > ### **Java 21 + Spring Boot 3** codebase containing real-world examples (CRUD, authentication, advanced patterns, etc.) that adheres to the [RealWorld](https://github.com/gothinkster/realworld) specification and API.
 
 ### [Demo](https://demo.realworld.io/) &nbsp;&nbsp;&nbsp;&nbsp; [RealWorld](https://github.com/gothinkster/realworld)

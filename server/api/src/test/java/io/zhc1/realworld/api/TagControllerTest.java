@@ -31,7 +31,7 @@ class TagControllerTest {
 
     @Test
     @DisplayName("GET /api/tags - 모든 태그를 조회한다")
-    void getAllTags_ShouldReturnAllTags() throws Exception {
+    void shouldReturnAllTags() throws Exception {
         // given
         Tag tag1 = new Tag("java");
         Tag tag2 = new Tag("spring");
@@ -51,7 +51,7 @@ class TagControllerTest {
 
     @Test
     @DisplayName("GET /api/tags - 태그가 없을 때 빈 배열을 반환한다")
-    void getAllTags_WhenNoTags_ShouldReturnEmptyArray() throws Exception {
+    void shouldReturnEmptyArrayWhenNoTags() throws Exception {
         // given
         given(tagService.getAllTags()).willReturn(List.of());
 

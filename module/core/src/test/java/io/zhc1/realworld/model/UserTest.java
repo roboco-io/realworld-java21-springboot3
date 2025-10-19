@@ -17,8 +17,8 @@ import org.junit.jupiter.params.provider.NullAndEmptySource;
 class UserTest {
     @ParameterizedTest
     @CsvSource({"email, true", "unknown email, false"})
-    @DisplayName(
-            "When comparing email with equalsEmail method, then should return true for matching email and false otherwise")
+    @DisplayName("When comparing email with equalsEmail method, "
+            + "then should return true for matching email and false otherwise")
     void whenComparingEmail_thenShouldReturnCorrectResult(String email, boolean expected) {
         // given
         User sut = new User("email", "username", "password");
@@ -32,8 +32,8 @@ class UserTest {
 
     @ParameterizedTest
     @CsvSource({"username, true", "unknown username, false"})
-    @DisplayName(
-            "When comparing username with equalsUsername method, then should return true for matching username and false otherwise")
+    @DisplayName("When comparing username with equalsUsername method, "
+            + "then should return true for matching username and false otherwise")
     void whenComparingUsername_thenShouldReturnCorrectResult(String username, boolean expected) {
         // given
         User sut = new User("email", "username", "password");

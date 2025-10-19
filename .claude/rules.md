@@ -26,14 +26,24 @@
    - 모든 코드는 `./gradlew spotlessApply` 실행 후 커밋
    - import 순서: java → jakarta → org → com → net → io → lombok → io.zhc1
 
-2. **Lombok 사용 규칙**
+2. **Checkstyle 규칙 준수**
+   - 빌드 시 자동으로 Checkstyle 검증 실행
+   - 주요 규칙:
+     - 파일 길이: 최대 500줄
+     - 라인 길이: 최대 120자
+     - 메서드 길이: 최대 150줄
+     - 파라미터 개수: 최대 7개
+     - 테스트 메서드명: BDD 스타일 허용 (when_, given_, should_)
+   - 검증 명령어: `./gradlew checkstyleMain checkstyleTest`
+
+3. **Lombok 사용 규칙**
    - `@RequiredArgsConstructor`: 생성자 주입 (권장)
    - `@Getter`: 엔티티 및 DTO
    - `@NoArgsConstructor(access = AccessLevel.PROTECTED)`: JPA 엔티티
    - `@Slf4j`: 로깅이 필요한 클래스
    - `@Data`, `@Builder` 사용 금지 (명시성 저하)
 
-3. **명명 규칙**
+4. **명명 규칙**
    - 클래스: PascalCase (예: `UserService`)
    - 메서드/변수: camelCase (예: `findByEmail`)
    - 상수: UPPER_SNAKE_CASE (예: `MAX_SIZE`)
@@ -274,10 +284,33 @@
 ### 커밋 전 체크리스트
 
 - [ ] `./gradlew spotlessApply` 실행
-- [ ] `./gradlew test` 성공 확인
+- [ ] `./gradlew build` 성공 확인 (테스트, 린트, 커버리지 포함)
 - [ ] 불필요한 주석 제거
 - [ ] console.log, System.out.println 제거
 - [ ] TODO 주석 확인 및 처리
+
+### CI/CD 규칙
+
+1. **GitHub Actions 워크플로우**
+   - main 브랜치에 push 시 자동 빌드 실행
+   - Pull Request 생성 시 자동 빌드 및 커버리지 리포트
+   - 빌드 단계:
+     1. Spotless 코드 포맷 검증
+     2. Checkstyle 린트 검증
+     3. 전체 빌드 (테스트 포함)
+     4. JaCoCo 커버리지 리포트 생성
+   - 빌드 실패 시 merge 불가
+
+2. **빌드 성공 기준**
+   - 모든 테스트 통과
+   - Checkstyle 위반 0건 (maxWarnings = 0)
+   - Spotless 포맷 준수
+   - 빌드 에러 없음
+
+3. **커버리지 요구사항**
+   - 전체 커버리지: 최소 70%
+   - 변경된 파일 커버리지: 최소 80%
+   - PR에 자동으로 커버리지 리포트 댓글 추가
 
 ### Git 태그 규칙
 

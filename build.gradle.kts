@@ -6,6 +6,7 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
     java
     jacoco
+    checkstyle
     alias(libs.plugins.spotless)
     alias(libs.plugins.spring.boot) apply false
     alias(libs.plugins.spring.dependency.management) apply false
@@ -28,6 +29,7 @@ allprojects {
             .pluginId,
     )
     plugins.apply("jacoco")
+    plugins.apply("checkstyle")
 
     repositories {
         mavenCentral()
@@ -41,6 +43,13 @@ allprojects {
 
     jacoco {
         toolVersion = "0.8.11"
+    }
+
+    checkstyle {
+        toolVersion = "10.12.5"
+        configFile = rootProject.file("config/checkstyle/checkstyle.xml")
+        isIgnoreFailures = false
+        maxWarnings = 0
     }
 
     spotless {
@@ -105,6 +114,11 @@ subprojects {
             xml.required.set(true)
             html.required.set(true)
         }
+    }
+
+    tasks.named("check") {
+        dependsOn(tasks.named("checkstyleMain"))
+        dependsOn(tasks.named("checkstyleTest"))
     }
 
     tasks.getByName<BootJar>("bootJar") {
