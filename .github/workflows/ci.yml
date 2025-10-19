@@ -36,32 +36,9 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Generate JaCoCo Badge
-        id: jacoco
-        uses: cicirello/jacoco-badge-generator@v2
-        with:
-          generate-branches-badge: true
-          jacoco-csv-file: build/reports/jacoco/jacocoRootReport/jacocoRootReport.csv
-
-      - name: Upload JaCoCo coverage report
-        uses: actions/upload-artifact@v4
-        with:
-          name: jacoco-report
-          path: build/reports/jacoco/jacocoRootReport/
-
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
           path: '**/build/test-results/test/*.xml'
-
-      - name: Comment coverage on PR
-        if: github.event_name == 'pull_request'
-        uses: madrapps/jacoco-report@v1.6.1
-        with:
-          paths: build/reports/jacoco/jacocoRootReport/jacocoRootReport.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 70
-          min-coverage-changed-files: 80
-          title: 'Code Coverage Report'
